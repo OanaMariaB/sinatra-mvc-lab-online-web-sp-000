@@ -9,7 +9,7 @@ class PigLatinizer
       consonants = word.slice!(0..index-1)
       return word + consonants + "ay"
     elsif index == 0 && vowels.include?(chr.downcase)
-      return word + "ay"
+      return word + "way"
     end
   end
 end
