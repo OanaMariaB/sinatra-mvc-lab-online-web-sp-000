@@ -3,19 +3,18 @@ class PigLatinizer
 
   def piglatinize(word)
     vowels = %w{a e i o u}
-  phrase = string.split(" ")
-  phrase.map! do |word|
-    letters = word.split("")
-    find_vowel = letters.index do |letter|
-      vowels.include?(letter)
+    word.each_char do |chr|
+    index = word.index(chr)
+    if index != 0 && vowels.include?(chr.downcase)
+      consonants = word.slice!(0..index-1)
+      return word + consonants + "ay"
+    elsif index == 0 && vowels.include?(chr.downcase)
+      return word + "ay"
     end
-    #turn "square" into "aresquay"
-    if letters[find_vowel] == "u"
-      find_vowel += 1
-    end
-    letters.rotate!(find_vowel)
-    letters.push("ay")
-    letters.join
   end
+end
 
+def to_pig_latin(sentence)
+  sentence.split(" ").collect { |word| piglatinize(word) }.join(" ")
+end
 end
